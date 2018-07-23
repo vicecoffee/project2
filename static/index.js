@@ -23,11 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function create_socket() {
   // Connect to websocket
+  const login_name = localStorage.getItem(user_name);
   var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
   // When connected, configure buttons
   socket.on('connect', () => {
-
+      welcome_message = `Welcome, ${login_name}!`;
+      document.querySelector("#user_name").innerHTML = welcome_message;
       // Create Channel should emit a "create channel" event
       document.querySelector('#new_channel_form').onsubmit = () => {
               const new_channel = document.querySelector("#new_channel").value;
@@ -86,7 +88,7 @@ function create_socket() {
 
   // Function to load the messages
     socket.on('message show message list', data => {
-        const message_list = data.message_list
+        const message_list = data.message_list;
         document.querySelector("#messages").innerHTML = '';
         for (index in message_list){
             create_message(message_list[index]);
@@ -112,6 +114,4 @@ function create_socket() {
         document.querySelector('#messages').append(message_box);
   };
 
-document.querySelector("#user_name").innerHTML = {"user_name": localStorage.getItem(user_name)};
-
-};
+}
