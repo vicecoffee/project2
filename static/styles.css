@@ -15,22 +15,30 @@ nav
 
 .sidebar
 {
-    background-color: dodgerblue;
+    background-color: #ffe033;
     height: 100%;
-    width: 180px;
+    width: 200px;
     position: fixed;
     top: 82;
     left: 0;
+    padding: 10px;
 }
 
 body
 {
     margin-bottom: 60px;
 }
-
-.container.container-full
+.col-md-3
 {
-    margin-left:180px;
+   font-weight: bold;
+}
+.col-md-2
+{
+    font-style: italic;
+}
+.container-full
+{
+    margin-left:200px;
 }
 
 .footer

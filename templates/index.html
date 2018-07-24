@@ -47,8 +47,11 @@
           </form>
         </div>
         <div id="logged-in">
-          <div class="sidebar">
-                  <ul id="channels">
+          <div class="sidebar"><h4>Active Channels</h4>
+                  <ul id="channels" class="list-unstyled">
+                  </ul>
+                  <h5>Current Users in <span id="current_channel">Channel</span></h5>
+                  <ul id="users" class="list-unstyled">
                   </ul>
                   <form id="new_channel_form" class="form pull-left">
                     <div class="form-group">
@@ -58,19 +61,21 @@
                   </form>
               </div>
 
-          <div class="container container-full">
-            <div id="messages"></div>
-            <div>
-                <form id="new_message_form" class="form pull-left">
-                  <div class="form-group">
-                    <input required id="new_message" autocomplete="off" name="new_message" placeholder="Chat away" type="text"/>
+          <div class="container-full">
+            <div class="container-fluid"><div id="messages"></div>
+            <div class="">
+                <form id="new_message_form">
+                  <div class="col-md-12">
+                    <div class="input-group">
+                      <input required id="new_message" class="form-control" autocomplete="off" name="new_message" placeholder="Chat away" type="text"/>
+                      <span class="input-group-btn"><button class="btn btn-primary" type="submit">Post</button></span>
+                    </div>
                   </div>
-                  <button class="btn btn-primary" type="submit">Post</button>
                 </form>
+              </div>
             </div>
           </div>
         </div>
-
       </main>
 
       <footer class="footer">

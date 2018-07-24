@@ -1,6 +1,8 @@
+// Set the "big" variables
 const user_name = "USER_NAME";
 const channel_name = "CHANNEL_NAME";
 
+// When the webpage is loaded check if the user is logged in.  If not set up the registration form
 document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem(user_name) != null) {
         create_socket();
@@ -20,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
+// Once the user is logged in, set up the sockets...all of them
 function create_socket() {
   // Connect to websocket
   const login_name = localStorage.getItem(user_name);
@@ -45,7 +47,7 @@ function create_socket() {
           if(target.tagName == "A"){
                 const show_channel = target.text;
                 localStorage.setItem(channel_name, show_channel);
-                socket.emit('join', {"show_channel": show_channel});
+                socket.emit('join', {"show_channel": show_channel, "user_name": localStorage.getItem(user_name)});
                 return false;
           }
 
@@ -73,6 +75,13 @@ function create_socket() {
         li.append(a);
         document.querySelector('#channels').append(li);
   };
+
+  let create_user = function(user_name){
+        const li = document.createElement('li');
+        li.innerHTML = user_name;
+        document.querySelector('#users').append(li);
+  };
+
   // When a new channel is announced, add to the unordered list
     socket.on('message announce channel', data => {
         create_channel(data.channel);
@@ -86,10 +95,23 @@ function create_socket() {
         }
   });
 
+  // Function to show users in a room
+  socket.on('message show user list', data => {
+    const user_list = data.users;
+    document.querySelector("#users").innerHTML = '';
+    for (index in user_list){
+      create_user(user_list[index]);
+    }
+  });
+
   // Function to load the messages
     socket.on('message show message list', data => {
         const message_list = data.message_list;
         document.querySelector("#messages").innerHTML = '';
+        const channel_name = data.channel_name;
+        if (channel_name){
+          document.querySelector('#current_channel').innerHTML = channel_name;
+        }
         for (index in message_list){
             create_message(message_list[index]);
         }
@@ -100,9 +122,9 @@ function create_socket() {
         const message_box = document.createElement("div");
         message_box.setAttribute("class", "row");
         const message_box_name = document.createElement("div");
-        message_box_name.setAttribute("class", "col-md-2");
+        message_box_name.setAttribute("class", "col-md-3");
         const message_box_message = document.createElement("div");
-        message_box_message.setAttribute("class", "col-md-8");
+        message_box_message.setAttribute("class", "col-md-7");
         const message_box_time_stamp = document.createElement("div");
         message_box_time_stamp.setAttribute("class", "col-md-2");
         message_box_name.innerHTML = message_content.user_name;
