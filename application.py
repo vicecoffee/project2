@@ -30,9 +30,12 @@ def add_channel(args):
     channel= args["new_channel"]
     if not channel in channel_list:
         chat_time = strftime("%d %b %Y %H:%M", localtime())
-        channel_list[channel] = {"messages":[Message("Zoltar the All-Knowing", "This is the first message in the {} channel.".format(channel), chat_time)], "users": []}
+        channel_list[channel] = {"messages":[Message("Zoltar the All-Knowing", "This is the first message in the {} channel.".format(channel), chat_time)],
+        "users": []}
     emit("message announce channel list", {"channel_list": list(channel_list.keys())}, broadcast=True)
 
+# Originally this was several seperate functions but once I realized I needed the users in the room,
+# they ended up all mushed together under "join"
 @socketio.on('join')
 def on_join(args):
     channel= args["show_channel"]
@@ -51,13 +54,14 @@ def on_join(args):
         emit("message show message list", {"message_list": message_list, "channel_name": channel})
         emit("message show user list", {"users": channel_list[channel]["users"]}, room = channel)
 
+# Initial contact for the user
 @socketio.on("connect")
 def make_channel_list():
     emit("message announce channel list", {"channel_list": list(channel_list.keys())})
 
+# Sets up the class/dict I made earlier
 @socketio.on("message create message")
 def add_message(args):
-    #this channel message list
     channel = args["channel_name"]
     if channel in channel_list:
         message= args["new_message"]
@@ -69,5 +73,3 @@ def add_message(args):
         message_list = channel_list[channel]["messages"]
         emit("message show message list", {"message_list": message_list}, room = channel)
 
-# @socketio.on("message delete message")
-# def delete_message(args)

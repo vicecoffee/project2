@@ -24,7 +24,8 @@
 
         <nav class="navbar navbar-expand-md navbar-dark bg-dark border">
             <a class="navbar-brand" href="/">Chatterbox</a>
-            <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
+            <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+            data-target="#navbar" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbar">
@@ -55,19 +56,21 @@
                   </ul>
                   <form id="new_channel_form" class="form pull-left">
                     <div class="form-group">
-                      <input required id="new_channel" autocomplete="off" name="new_channel" placeholder="Add New Channel" type="text"/>
+                      <input required id="new_channel" autocomplete="off" name="new_channel" placeholder="Add New Channel"
+                      type="text"/>
                     </div>
                     <button class="btn btn-primary" type="submit">Submit</button>
                   </form>
               </div>
-
+<!-- This part was difficult.  I still don't quitet understand when to use a container -->
           <div class="container-full">
             <div class="container-fluid"><div id="messages"></div>
             <div class="">
                 <form id="new_message_form">
                   <div class="col-md-12">
                     <div class="input-group">
-                      <input required id="new_message" class="form-control" autocomplete="off" name="new_message" placeholder="Chat away" type="text"/>
+                      <input required id="new_message" class="form-control" autocomplete="off" name="new_message"
+                      placeholder="Chat away" type="text"/>
                       <span class="input-group-btn"><button class="btn btn-primary" type="submit">Post</button></span>
                     </div>
                   </div>

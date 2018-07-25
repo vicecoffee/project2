@@ -58,7 +58,8 @@ function create_socket() {
             const new_message = document.querySelector('#new_message').value;
           //  Clear out the form
             document.querySelector("#new_message").value = '';
-            socket.emit('message create message', {"new_message": new_message, "user_name": localStorage.getItem(user_name), "channel_name": localStorage.getItem(channel_name)});
+            socket.emit('message create message', {"new_message": new_message, "user_name": localStorage.getItem(user_name),
+            "channel_name": localStorage.getItem(channel_name)});
             return false;
     };
 
@@ -75,7 +76,7 @@ function create_socket() {
         li.append(a);
         document.querySelector('#channels').append(li);
   };
-
+  // To populate my users list
   let create_user = function(user_name){
         const li = document.createElement('li');
         li.innerHTML = user_name;
@@ -117,7 +118,7 @@ function create_socket() {
         }
   });
 
-  // Make function to make convo row for display
+  // Make function to make convo row for display.  I tried to put the css/html stuff in this but maybe it is not elegant?
   let create_message = function(message_content){
         const message_box = document.createElement("div");
         message_box.setAttribute("class", "row");
